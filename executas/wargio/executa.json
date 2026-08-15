@@ -1,0 +1,9 @@
+{
+  "slug": "wargio",
+  "name": "Wargio Executa",
+  "version": "0.1.0",
+  "executa_type": "tool",
+  "description": "Business logic tools for Indonesian warung: inventory, sales, debts, and payment recording. Bilingual (ID/EN).",
+  "tool_id": "tool-dev-wargio",
+  "type": "python"
+}

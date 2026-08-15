@@ -1,6 +1,6 @@
 """Wargio Executa stdio plugin — tools wired to wargio_core handlers.
 
-Provides: ping, get_inventory, get_sales, get_debts, record_payment.
+Provides: ping, get_inventory, get_sales, get_debts, record_payment, record_sale, sales_forecast.
 Each tool dispatches to an adapter that calls vendored wargio_core business logic.
 """
 
@@ -131,6 +131,70 @@ MANIFEST = {
                 "additionalProperties": False,
             },
         },
+        {
+            "name": "record_sale",
+            "description": "Record a product sale. Use action='prepare' with items list to get a draft summary, then action='confirm' with the draft_id to execute, or action='cancel' to discard.",
+            "parameters": {
+                "type": "object",
+                "properties": {
+                    "action": {
+                        "type": "string",
+                        "enum": ["prepare", "confirm", "cancel"],
+                        "description": "Phase: 'prepare' validates items and creates draft, 'confirm' executes sale, 'cancel' discards.",
+                    },
+                    "items": {
+                        "type": "array",
+                        "items": {
+                            "type": "object",
+                            "properties": {
+                                "product_name": {"type": "string"},
+                                "qty": {"type": "integer"},
+                            },
+                            "required": ["product_name", "qty"],
+                        },
+                        "description": "List of items to sell (required for prepare).",
+                    },
+                    "payment_method": {
+                        "type": "string",
+                        "enum": ["tunai", "hutang"],
+                        "default": "tunai",
+                        "description": "Payment method: 'tunai' (cash) or 'hutang' (credit/debt).",
+                    },
+                    "customer_name": {
+                        "type": "string",
+                        "description": "Customer name (required if payment_method='hutang').",
+                    },
+                    "draft_id": {
+                        "type": "string",
+                        "description": "Draft ID from prepare response (required for confirm/cancel).",
+                    },
+                    "language": {
+                        "type": "string",
+                        "enum": ["id", "en"],
+                        "default": "id",
+                        "description": "Response language: 'id' (Indonesian) or 'en' (English).",
+                    },
+                },
+                "required": ["action"],
+                "additionalProperties": False,
+            },
+        },
+        {
+            "name": "sales_forecast",
+            "description": "Get a simple sales forecast for tomorrow based on historical day-of-week patterns from the last 30 days.",
+            "parameters": {
+                "type": "object",
+                "properties": {
+                    "language": {
+                        "type": "string",
+                        "enum": ["id", "en"],
+                        "default": "id",
+                        "description": "Response language: 'id' (Indonesian) or 'en' (English).",
+                    },
+                },
+                "additionalProperties": False,
+            },
+        },
     ],
 }
 
@@ -172,6 +236,22 @@ def invoke(method: str, args: dict) -> dict:
             from adapters.payment import run_record_payment
 
             return _loop.run_until_complete(run_record_payment(args))
+        except Exception as e:  # noqa: BLE001
+            return {"success": False, "error": str(e)}
+
+    if method == "record_sale":
+        try:
+            from adapters.sales_write import run_record_sale
+
+            return _loop.run_until_complete(run_record_sale(args))
+        except Exception as e:  # noqa: BLE001
+            return {"success": False, "error": str(e)}
+
+    if method == "sales_forecast":
+        try:
+            from adapters.forecast import run_sales_forecast
+
+            return _loop.run_until_complete(run_sales_forecast(args))
         except Exception as e:  # noqa: BLE001
             return {"success": False, "error": str(e)}
 
