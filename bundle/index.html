@@ -1,15 +1,36 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="id">
   <head>
     <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>Wargio</title>
     <script src="./app.js" type="module"></script>
     <link rel="stylesheet" href="./styles.css" />
   </head>
   <body>
-    <h1>Wargio</h1>
-    <p class="subtitle">Asisten bisnis warung / warung business assistant</p>
-    <button id="primary-btn">Ping Executa</button>
-    <pre id="status">…</pre>
+    <header>
+      <h1>Wargio</h1>
+      <p class="subtitle">Asisten bisnis warung</p>
+    </header>
+    <main id="dashboard">
+      <section class="card" id="card-inventory">
+        <h2>Stok Kritis</h2>
+        <div class="card-body" id="inventory-body">Memuat...</div>
+        <button class="card-btn" id="btn-inventory">Refresh</button>
+      </section>
+      <section class="card" id="card-sales">
+        <h2>Penjualan Hari Ini</h2>
+        <div class="card-body" id="sales-body">Memuat...</div>
+        <button class="card-btn" id="btn-sales">Refresh</button>
+      </section>
+      <section class="card" id="card-debts">
+        <h2>Hutang Aktif</h2>
+        <div class="card-body" id="debts-body">Memuat...</div>
+        <button class="card-btn" id="btn-debts">Refresh</button>
+      </section>
+    </main>
+    <footer>
+      <small>Wargio Anna Edition v0.1</small>
+    </footer>
   </body>
 </html>

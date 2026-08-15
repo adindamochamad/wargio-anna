@@ -1,12 +1,16 @@
-"""Wargio Executa stdio plugin (Gelombang 0 ping/pong harness).
+"""Wargio Executa stdio plugin — tools wired to wargio_core handlers.
 
-Real Wargio tools (get_inventory, get_sales, get_debts, record_payment) are
-wired to vendored wargio_core handlers in later waves. For CP-0 this only
-proves the describe / invoke / health JSON-RPC loop over stdio.
+Provides: ping, get_inventory, get_sales, get_debts, record_payment.
+Each tool dispatches to an adapter that calls vendored wargio_core business logic.
 """
 
+import asyncio
 import json
 import sys
+
+# Persistent event loop shared by all async tool invocations.
+# This avoids AsyncMongoClient being bound to a now-closed loop on subsequent calls.
+_loop = asyncio.new_event_loop()
 
 MANIFEST = {
     "name": "tool-dev-wargio",
@@ -20,18 +24,157 @@ MANIFEST = {
                 "properties": {},
                 "additionalProperties": False,
             },
-        }
+        },
+        {
+            "name": "get_inventory",
+            "description": "Check product stock levels or list low-stock items needing restock.",
+            "parameters": {
+                "type": "object",
+                "properties": {
+                    "query": {
+                        "type": "string",
+                        "description": "Product name to check specific stock level.",
+                    },
+                    "low_stock_only": {
+                        "type": "boolean",
+                        "default": False,
+                        "description": "If true, only return products at or below minimum stock.",
+                    },
+                    "language": {
+                        "type": "string",
+                        "enum": ["id", "en"],
+                        "default": "id",
+                        "description": "Response language: 'id' (Indonesian) or 'en' (English).",
+                    },
+                },
+                "additionalProperties": False,
+            },
+        },
+        {
+            "name": "get_sales",
+            "description": "Get sales report for today or the past week.",
+            "parameters": {
+                "type": "object",
+                "properties": {
+                    "period": {
+                        "type": "string",
+                        "enum": ["today", "week"],
+                        "default": "today",
+                        "description": "Report period: 'today' or 'week'.",
+                    },
+                    "language": {
+                        "type": "string",
+                        "enum": ["id", "en"],
+                        "default": "id",
+                        "description": "Response language: 'id' (Indonesian) or 'en' (English).",
+                    },
+                },
+                "additionalProperties": False,
+            },
+        },
+        {
+            "name": "get_debts",
+            "description": "Check a specific customer's debt or list all customers with outstanding debt.",
+            "parameters": {
+                "type": "object",
+                "properties": {
+                    "customer_name": {
+                        "type": "string",
+                        "description": "Customer name to check specific debt.",
+                    },
+                    "list_all": {
+                        "type": "boolean",
+                        "default": False,
+                        "description": "If true, list all customers with outstanding debt.",
+                    },
+                    "language": {
+                        "type": "string",
+                        "enum": ["id", "en"],
+                        "default": "id",
+                        "description": "Response language: 'id' (Indonesian) or 'en' (English).",
+                    },
+                },
+                "additionalProperties": False,
+            },
+        },
+        {
+            "name": "record_payment",
+            "description": "Record a customer debt payment. Use action='prepare' first to get a draft summary, then action='confirm' with the draft_id to execute the write, or action='cancel' to discard.",
+            "parameters": {
+                "type": "object",
+                "properties": {
+                    "action": {
+                        "type": "string",
+                        "enum": ["prepare", "confirm", "cancel"],
+                        "description": "Phase: 'prepare' validates and creates draft, 'confirm' executes write, 'cancel' discards draft.",
+                    },
+                    "customer_name": {
+                        "type": "string",
+                        "description": "Customer name (required for prepare).",
+                    },
+                    "amount": {
+                        "type": "number",
+                        "description": "Payment amount in IDR (required for prepare).",
+                    },
+                    "draft_id": {
+                        "type": "string",
+                        "description": "Draft ID from prepare response (required for confirm/cancel).",
+                    },
+                    "language": {
+                        "type": "string",
+                        "enum": ["id", "en"],
+                        "default": "id",
+                        "description": "Response language: 'id' (Indonesian) or 'en' (English).",
+                    },
+                },
+                "required": ["action"],
+                "additionalProperties": False,
+            },
+        },
     ],
 }
 
 
 def invoke(method: str, args: dict) -> dict:
-    # Tool methods MUST return the dispatcher contract envelope:
-    #   {"success": True,  "data":  <payload-dict>}
-    #   {"success": False, "error": "<reason>"}
-    # Anything else surfaces to the iframe as `tool_failed`.
+    """Dispatch tool invocation. Returns envelope dict.
+
+    Async adapters are executed via asyncio.run() since the stdio loop is sync.
+    """
     if method == "ping":
         return {"success": True, "data": {"pong": True}}
+
+    if method == "get_inventory":
+        try:
+            from adapters.inventory import run_get_inventory
+
+            return _loop.run_until_complete(run_get_inventory(args))
+        except Exception as e:  # noqa: BLE001
+            return {"success": False, "error": str(e)}
+
+    if method == "get_sales":
+        try:
+            from adapters.sales import run_get_sales
+
+            return _loop.run_until_complete(run_get_sales(args))
+        except Exception as e:  # noqa: BLE001
+            return {"success": False, "error": str(e)}
+
+    if method == "get_debts":
+        try:
+            from adapters.debts import run_get_debts
+
+            return _loop.run_until_complete(run_get_debts(args))
+        except Exception as e:  # noqa: BLE001
+            return {"success": False, "error": str(e)}
+
+    if method == "record_payment":
+        try:
+            from adapters.payment import run_record_payment
+
+            return _loop.run_until_complete(run_record_payment(args))
+        except Exception as e:  # noqa: BLE001
+            return {"success": False, "error": str(e)}
+
     return {"success": False, "error": f"unknown method: {method}"}
 
 

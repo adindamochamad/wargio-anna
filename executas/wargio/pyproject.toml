@@ -7,12 +7,13 @@ name = "tool-dev-wargio"
 version = "0.1.0"
 description = "Executa for the Wargio Anna App (inventory, sales, debts, payments)"
 requires-python = ">=3.10"
-# wargio_core business logic is vendored in later waves; add its deps then:
-#   "pymongo>=4.0",
-dependencies = []
+dependencies = [
+    "pymongo>=4.0",
+]
 
 [project.scripts]
 "tool-dev-wargio" = "wargio_plugin:main"
 
 [tool.setuptools]
 py-modules = ["wargio_plugin"]
+packages = ["adapters", "wargio_core", "wargio_core.db", "wargio_core.services", "wargio_core.util"]
