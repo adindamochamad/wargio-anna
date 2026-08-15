@@ -1,0 +1,41 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="512" height="512">
+  <!-- Background circle -->
+  <circle cx="256" cy="256" r="240" fill="#2d6a4f" opacity="0.1"/>
+  
+  <!-- Shop roof / awning -->
+  <path d="M96 200 L256 120 L416 200 L416 220 L96 220 Z" fill="#2d6a4f"/>
+  
+  <!-- Awning scallops -->
+  <path d="M96 220 Q128 250 160 220 Q192 250 224 220 Q256 250 288 220 Q320 250 352 220 Q384 250 416 220 L416 240 Q384 270 352 240 Q320 270 288 240 Q256 270 224 240 Q192 270 160 240 Q128 270 96 240 Z" fill="#2d6a4f" opacity="0.85"/>
+  
+  <!-- Shop body -->
+  <rect x="120" y="240" width="272" height="160" fill="#2d6a4f" opacity="0.15" rx="4"/>
+  
+  <!-- Shop walls -->
+  <rect x="120" y="240" width="272" height="160" fill="none" stroke="#2d6a4f" stroke-width="8" rx="4"/>
+  
+  <!-- Door -->
+  <rect x="224" y="300" width="64" height="100" fill="#2d6a4f" opacity="0.3" rx="4"/>
+  <rect x="224" y="300" width="64" height="100" fill="none" stroke="#2d6a4f" stroke-width="6" rx="4"/>
+  
+  <!-- Door handle -->
+  <circle cx="278" cy="355" r="6" fill="#2d6a4f"/>
+  
+  <!-- Left window -->
+  <rect x="140" y="270" width="60" height="50" fill="#2d6a4f" opacity="0.2" rx="3"/>
+  <rect x="140" y="270" width="60" height="50" fill="none" stroke="#2d6a4f" stroke-width="5" rx="3"/>
+  <line x1="170" y1="270" x2="170" y2="320" stroke="#2d6a4f" stroke-width="3"/>
+  <line x1="140" y1="295" x2="200" y2="295" stroke="#2d6a4f" stroke-width="3"/>
+  
+  <!-- Right window -->
+  <rect x="312" y="270" width="60" height="50" fill="#2d6a4f" opacity="0.2" rx="3"/>
+  <rect x="312" y="270" width="60" height="50" fill="none" stroke="#2d6a4f" stroke-width="5" rx="3"/>
+  <line x1="342" y1="270" x2="342" y2="320" stroke="#2d6a4f" stroke-width="3"/>
+  <line x1="312" y1="295" x2="372" y2="295" stroke="#2d6a4f" stroke-width="3"/>
+  
+  <!-- Roof peak decoration -->
+  <polygon points="256,108 248,120 264,120" fill="#2d6a4f"/>
+  
+  <!-- Ground line -->
+  <line x1="80" y1="400" x2="432" y2="400" stroke="#2d6a4f" stroke-width="6" stroke-linecap="round"/>
+</svg>

@@ -1,7 +1,23 @@
 {
   "name": "wargio",
+  "slug": "wargio-anna",
   "tagline": "AI business assistant for Indonesian warung",
   "description": "Wargio helps Indonesian warung (micro-retail) owners check inventory, review sales, track customer debts, and record payments through natural-language chat and a lightweight dashboard. Bilingual (Bahasa Indonesia / English).",
   "category": "productivity",
-  "pricing_model": "free"
+  "pricing_model": "free",
+  "icon": "assets/logo.svg",
+  "privacy_url": "https://wargio.example.com/privacy",
+  "support_url": "https://wargio.example.com/support",
+  "keywords": [
+    "warung",
+    "inventory",
+    "sales",
+    "debt-tracking",
+    "payments",
+    "micro-retail",
+    "indonesia",
+    "bilingual",
+    "ai-assistant",
+    "chat"
+  ]
 }
