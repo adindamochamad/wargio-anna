@@ -1,0 +1,18 @@
+[build-system]
+requires = ["setuptools>=68", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "tool-dev-wargio"
+version = "0.1.0"
+description = "Executa for the Wargio Anna App (inventory, sales, debts, payments)"
+requires-python = ">=3.10"
+# wargio_core business logic is vendored in later waves; add its deps then:
+#   "pymongo>=4.0",
+dependencies = []
+
+[project.scripts]
+"tool-dev-wargio" = "wargio_plugin:main"
+
+[tool.setuptools]
+py-modules = ["wargio_plugin"]

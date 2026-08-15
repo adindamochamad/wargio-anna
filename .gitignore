@@ -1,0 +1,17 @@
+# Secrets
+.env
+
+# Python
+__pycache__/
+*.pyc
+.venv/
+executas/**/.venv/
+executas/**/*.egg-info/
+build/
+dist/
+
+# Anna CLI local dev
+.anna/
+
+# OS
+.DS_Store
