@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Privacy Policy — Wargio Anna Edition</title>
+    <style>
+        :root {
+            --bg: #fafafa;
+            --fg: #1a1a1a;
+            --muted: #666;
+            --accent: #2563eb;
+            --border: #e5e5e5;
+        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+            background: var(--bg);
+            color: var(--fg);
+            line-height: 1.7;
+            padding: 2rem 1rem;
+        }
+        .container {
+            max-width: 720px;
+            margin: 0 auto;
+        }
+        h1 {
+            font-size: 1.75rem;
+            margin-bottom: 0.25rem;
+        }
+        .last-updated {
+            color: var(--muted);
+            font-size: 0.875rem;
+            margin-bottom: 2rem;
+        }
+        h2 {
+            font-size: 1.25rem;
+            margin-top: 2rem;
+            margin-bottom: 0.5rem;
+            border-bottom: 1px solid var(--border);
+            padding-bottom: 0.25rem;
+        }
+        p, ul {
+            margin-bottom: 1rem;
+        }
+        ul {
+            padding-left: 1.5rem;
+        }
+        li {
+            margin-bottom: 0.25rem;
+        }
+        a {
+            color: var(--accent);
+            text-decoration: none;
+        }
+        a:hover {
+            text-decoration: underline;
+        }
+        .footer {
+            margin-top: 3rem;
+            padding-top: 1rem;
+            border-top: 1px solid var(--border);
+            color: var(--muted);
+            font-size: 0.875rem;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Privacy Policy</h1>
+        <p class="last-updated">Last updated: August 16, 2026</p>
+
+        <p>Wargio Anna Edition ("Wargio", "we", "our") is an AI business assistant for Indonesian warung (micro-retail) owners, distributed as an App on the <a href="https://anna.partners">Anna platform</a>.</p>
+
+        <h2>1. Data We Process</h2>
+        <p>Wargio processes the following types of data through its tools:</p>
+        <ul>
+            <li><strong>Inventory data</strong> — product names, stock quantities, and restock thresholds</li>
+            <li><strong>Sales data</strong> — transaction amounts, dates, product sold</li>
+            <li><strong>Debt records</strong> — customer names and outstanding balances</li>
+            <li><strong>Payment records</strong> — payment amounts and customer references</li>
+        </ul>
+        <p>In the current version, all data is <strong>synthetic/demo data</strong> stored in a dedicated demo database. No real business or personal data is collected.</p>
+
+        <h2>2. Data Storage</h2>
+        <ul>
+            <li>Business data is stored in an external MongoDB Atlas database (demo cluster).</li>
+            <li>Draft/pending operations are stored in process memory during your session and are not persisted after the session ends.</li>
+            <li>We do not store conversation history — that is managed by the Anna platform according to their privacy policy.</li>
+        </ul>
+
+        <h2>3. Data We Do NOT Collect</h2>
+        <ul>
+            <li>We do not collect personal identification information (KTP, email, phone).</li>
+            <li>We do not use analytics, tracking pixels, or third-party advertising.</li>
+            <li>We do not sell or share data with third parties.</li>
+            <li>We do not store your chat messages or conversation logs.</li>
+        </ul>
+
+        <h2>4. Third-Party Services</h2>
+        <ul>
+            <li><strong>Anna Platform</strong> — provides the runtime environment, agent, and user authentication. See <a href="https://anna.partners/privacy">Anna's Privacy Policy</a>.</li>
+            <li><strong>MongoDB Atlas</strong> — hosts the demo business database on a free-tier cluster (region: Southeast Asia).</li>
+        </ul>
+
+        <h2>5. Data Retention & Deletion</h2>
+        <p>Demo data is retained indefinitely for functionality. When production multi-tenant support is added, users will be able to request deletion of their business data by contacting us.</p>
+
+        <h2>6. Security</h2>
+        <ul>
+            <li>Database connections use TLS encryption.</li>
+            <li>Database credentials are stored as Executa developer credentials (not in source code).</li>
+            <li>The demo database is isolated from any production systems.</li>
+        </ul>
+
+        <h2>7. Children's Privacy</h2>
+        <p>Wargio is a business tool intended for adult warung owners. We do not knowingly process data from children under 13.</p>
+
+        <h2>8. Changes to This Policy</h2>
+        <p>We may update this policy as features evolve (particularly when adding real multi-tenant data). Changes will be posted on this page with an updated date.</p>
+
+        <h2>9. Contact</h2>
+        <p>For privacy questions or data deletion requests:</p>
+        <ul>
+            <li>GitHub: <a href="https://github.com/adindamochamad/wargio-anna/issues">Open an issue</a></li>
+            <li>Email: <a href="mailto:adindamochamad@gmail.com">adindamochamad@gmail.com</a></li>
+        </ul>
+
+        <div class="footer">
+            <p>&copy; 2026 Adinda Panca Mochamad. Wargio Anna Edition is independently developed and distributed on the Anna platform.</p>
+        </div>
+    </div>
+</body>
+</html>

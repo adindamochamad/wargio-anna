@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Support — Wargio Anna Edition</title>
+    <style>
+        :root {
+            --bg: #fafafa;
+            --fg: #1a1a1a;
+            --muted: #666;
+            --accent: #2563eb;
+            --border: #e5e5e5;
+            --card-bg: #fff;
+        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+            background: var(--bg);
+            color: var(--fg);
+            line-height: 1.7;
+            padding: 2rem 1rem;
+        }
+        .container {
+            max-width: 720px;
+            margin: 0 auto;
+        }
+        h1 {
+            font-size: 1.75rem;
+            margin-bottom: 0.5rem;
+        }
+        .subtitle {
+            color: var(--muted);
+            margin-bottom: 2rem;
+        }
+        h2 {
+            font-size: 1.25rem;
+            margin-top: 2rem;
+            margin-bottom: 0.5rem;
+            border-bottom: 1px solid var(--border);
+            padding-bottom: 0.25rem;
+        }
+        p, ul {
+            margin-bottom: 1rem;
+        }
+        ul {
+            padding-left: 1.5rem;
+        }
+        li {
+            margin-bottom: 0.25rem;
+        }
+        a {
+            color: var(--accent);
+            text-decoration: none;
+        }
+        a:hover {
+            text-decoration: underline;
+        }
+        .card {
+            background: var(--card-bg);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 1.25rem;
+            margin-bottom: 1rem;
+        }
+        .card h3 {
+            font-size: 1rem;
+            margin-bottom: 0.5rem;
+        }
+        .card p {
+            margin-bottom: 0.5rem;
+            color: var(--muted);
+            font-size: 0.9rem;
+        }
+        code {
+            background: #f0f0f0;
+            padding: 0.15rem 0.4rem;
+            border-radius: 3px;
+            font-size: 0.85rem;
+        }
+        .faq dt {
+            font-weight: 600;
+            margin-top: 1rem;
+        }
+        .faq dd {
+            margin-left: 0;
+            margin-bottom: 0.75rem;
+            color: var(--muted);
+        }
+        .footer {
+            margin-top: 3rem;
+            padding-top: 1rem;
+            border-top: 1px solid var(--border);
+            color: var(--muted);
+            font-size: 0.875rem;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Support</h1>
+        <p class="subtitle">Wargio Anna Edition — AI business assistant for Indonesian warung</p>
+
+        <h2>Get Help</h2>
+
+        <div class="card">
+            <h3>🐛 Report a Bug</h3>
+            <p>Found something not working? Open a GitHub issue with details of what happened.</p>
+            <a href="https://github.com/adindamochamad/wargio-anna/issues/new?labels=bug&template=bug_report.md">Report a bug →</a>
+        </div>
+
+        <div class="card">
+            <h3>💡 Request a Feature</h3>
+            <p>Have an idea for a new tool or improvement? We'd love to hear it.</p>
+            <a href="https://github.com/adindamochamad/wargio-anna/issues/new?labels=enhancement">Request a feature →</a>
+        </div>
+
+        <div class="card">
+            <h3>📧 Email Support</h3>
+            <p>For questions not suited for GitHub, reach out directly.</p>
+            <a href="mailto:adindamochamad@gmail.com">adindamochamad@gmail.com</a>
+        </div>
+
+        <h2>Available Tools</h2>
+        <p>Wargio provides these tools via natural language chat:</p>
+        <ul>
+            <li><code>get_inventory</code> — Check stock levels, find products needing restock</li>
+            <li><code>get_sales</code> — View revenue for today or this week</li>
+            <li><code>get_debts</code> — Check a customer's debt or list all debtors</li>
+            <li><code>record_payment</code> — Record a customer payment (with confirmation)</li>
+            <li><code>record_sale</code> — Record a sale, cash or credit (with confirmation)</li>
+            <li><code>sales_forecast</code> — Predict tomorrow's business level</li>
+        </ul>
+
+        <h2>Example Queries</h2>
+        <p>Try these in your Anna chat with <code>#wargio</code>:</p>
+        <ul>
+            <li>"Produk apa yang hampir habis?" — Check low stock</li>
+            <li>"Berapa stok Indomie?" — Check specific product</li>
+            <li>"Berapa penjualan minggu ini?" — Weekly sales</li>
+            <li>"Siapa yang masih punya hutang?" — List debtors</li>
+            <li>"Catat pembayaran Budi 50000" — Record payment</li>
+            <li>"Prediksi besok ramai atau sepi?" — Sales forecast</li>
+        </ul>
+
+        <h2>FAQ</h2>
+        <dl class="faq">
+            <dt>Is my data real or demo?</dt>
+            <dd>The current version uses synthetic demo data. No real business data is collected or stored. This is intentional for the beta period.</dd>
+
+            <dt>Can I use Wargio for my actual warung?</dt>
+            <dd>Not yet. Multi-tenant support with real data isolation is planned for a future release. For now, it demonstrates the AI assistant workflow with demo data.</dd>
+
+            <dt>Why does Wargio ask for confirmation before writing?</dt>
+            <dd>Write operations (record_payment, record_sale) always show a summary and require you to say "ya" or "yes" before committing. This prevents accidental data changes.</dd>
+
+            <dt>What language does Wargio speak?</dt>
+            <dd>Bilingual — Bahasa Indonesia and English. Wargio responds in whichever language you use.</dd>
+
+            <dt>The tool returned no data / error</dt>
+            <dd>The demo database has a limited dataset. If you query something outside the demo fixtures, you may get empty results. This is expected.</dd>
+        </dl>
+
+        <h2>Source Code</h2>
+        <p>Wargio Anna Edition is open source:</p>
+        <ul>
+            <li><a href="https://github.com/adindamochamad/wargio-anna">wargio-anna</a> — Anna App + Executa distribution</li>
+            <li><a href="https://github.com/adindamochamad/wargio">wargio</a> — Original standalone Wargio project</li>
+        </ul>
+
+        <div class="footer">
+            <p>&copy; 2026 Adinda Panca Mochamad. Built with ❤️ for warung owners.</p>
+        </div>
+    </div>
+</body>
+</html>
